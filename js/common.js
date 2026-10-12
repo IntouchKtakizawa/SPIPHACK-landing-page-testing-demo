@@ -73,6 +73,104 @@ function initNav() {
   $$("[data-placeholder-link]").forEach((a) => a.addEventListener("click", (e) => {
     if (a.getAttribute("href") === "#") e.preventDefault();
   }));
+
+  initNotifyModal();
+}
+
+/* ---------- Registration notification demo ---------- */
+function initNotifyModal() {
+  const triggers = $$("[data-notify-open]");
+  if (!triggers.length || $("[data-notify-modal]")) return;
+
+  const modal = document.createElement("dialog");
+  modal.className = "notify-modal";
+  modal.setAttribute("data-notify-modal", "");
+  modal.setAttribute("aria-labelledby", "notify-title");
+  modal.setAttribute("aria-describedby", "notify-description");
+  modal.innerHTML = `
+    <div class="notify-modal__glow" aria-hidden="true"></div>
+    <button class="notify-modal__close" type="button" data-notify-close aria-label="Close notification form">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="notify-modal__content">
+      <p class="eyebrow">Registration updates</p>
+      <h2 id="notify-title">Be first in line.</h2>
+      <p class="notify-modal__intro" id="notify-description">Enter your email and we’ll let you know when SPIP Hack 2027 registration opens.</p>
+      <form class="notify-form" data-notify-form novalidate>
+        <label for="notify-email">Email address</label>
+        <div class="notify-form__field">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+          <input id="notify-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+        </div>
+        <p class="notify-form__error" data-notify-error aria-live="polite"></p>
+        <button class="btn btn--grad notify-form__submit" type="submit">Notify me</button>
+        <p class="notify-form__privacy">Testing demo — your email stays on this device and is not sent anywhere.</p>
+      </form>
+      <div class="notify-success" data-notify-success hidden tabindex="-1">
+        <span class="notify-success__icon" aria-hidden="true">✓</span>
+        <h3>You’re on the demo list.</h3>
+        <p>This browser will remember your email. Connect a mailing service before using this for real registrations.</p>
+        <button class="btn btn--ghost" type="button" data-notify-change>Use a different email</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+
+  const form = $("[data-notify-form]", modal);
+  const email = $("#notify-email", modal);
+  const error = $("[data-notify-error]", modal);
+  const success = $("[data-notify-success]", modal);
+  const storageKey = "spiphack-notify-email";
+  let returnFocus = null;
+
+  function savedEmail() {
+    try { return localStorage.getItem(storageKey) || ""; }
+    catch (_) { return ""; }
+  }
+
+  function showForm() {
+    form.hidden = false;
+    success.hidden = true;
+    email.value = savedEmail();
+    error.textContent = "";
+    requestAnimationFrame(() => email.focus());
+  }
+
+  function openModal(trigger) {
+    returnFocus = trigger;
+    showForm();
+    modal.showModal();
+    document.body.classList.add("is-locked");
+  }
+
+  function closeModal() {
+    modal.close();
+    document.body.classList.remove("is-locked");
+    returnFocus?.focus();
+  }
+
+  triggers.forEach((trigger) => trigger.addEventListener("click", () => openModal(trigger)));
+  $("[data-notify-close]", modal).addEventListener("click", closeModal);
+  $("[data-notify-change]", modal).addEventListener("click", showForm);
+  modal.addEventListener("click", (event) => { if (event.target === modal) closeModal(); });
+  modal.addEventListener("cancel", (event) => { event.preventDefault(); closeModal(); });
+  modal.addEventListener("close", () => document.body.classList.remove("is-locked"));
+
+  email.addEventListener("input", () => { error.textContent = ""; });
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!email.validity.valid) {
+      error.textContent = email.validity.valueMissing
+        ? "Enter your email address."
+        : "Enter a valid email address.";
+      email.focus();
+      return;
+    }
+    try { localStorage.setItem(storageKey, email.value.trim()); }
+    catch (_) { /* The confirmation still works when storage is unavailable. */ }
+    form.hidden = true;
+    success.hidden = false;
+    success.focus();
+  });
 }
 
 /* ---------- Scroll progress bar under the navbar ---------- */
