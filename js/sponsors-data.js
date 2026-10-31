@@ -15,7 +15,7 @@
       Shown on the Sponsors page only; the home page strip shows logo + name.
    ================================================================ */
 const SPONSORS = [
-  { name: "Sponsor 1", logo: "", url: "", about: "" },   // e.g. logo: "assets/sponsors/acme.svg"
+  { name: "Sponsor 1", logo: "", url: "", about: "" }, // e.g. logo: "assets/sponsors/acme.svg"
   { name: "Sponsor 2", logo: "", url: "", about: "" },
   { name: "Sponsor 3", logo: "", url: "", about: "" },
   { name: "Sponsor 4", logo: "", url: "", about: "" },

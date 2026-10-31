@@ -13,58 +13,150 @@
   const TEAM = {
     leads: [
       // short: label used on phones, where space is tight
-      { id: "ops", name: "Guts Tangjitpeanphong", role: "Head of Operations", short: "Head of Ops", photo: "assets/team/Guts.webp" },
-      { id: "lead", name: "Moshi Jearanaiphaisan", role: "Team Lead", short: "Team Lead", photo: "assets/team/Moshi.webp" },
-      { id: "pr", name: "Ja Pachsong", role: "Head of PR", short: "Head of PR", photo: "assets/team/Ja.webp" },
+      {
+        id: "ops",
+        name: "Guts Tangjitpeanphong",
+        role: "Head of Operations",
+        short: "Head of Ops",
+        photo: "assets/team/Guts.webp",
+      },
+      {
+        id: "lead",
+        name: "Moshi Jearanaiphaisan",
+        role: "Team Lead",
+        short: "Team Lead",
+        photo: "assets/team/Moshi.webp",
+      },
+      {
+        id: "pr",
+        name: "Ja Pachsong",
+        role: "Head of PR",
+        short: "Head of PR",
+        photo: "assets/team/Ja.webp",
+      },
     ],
     secretaries: [
-      { name: "Phoom Pornlertphitiyakul", role: "Secretary", photo: "assets/team/Phoom.webp" },
-      { name: "Pan Chemnasiri", role: "Secretary", photo: "assets/team/Pan.webp" },
+      {
+        name: "Phoom Pornlertphitiyakul",
+        role: "Secretary",
+        photo: "assets/team/Phoom.webp",
+      },
+      {
+        name: "Pan Chemnasiri",
+        role: "Secretary",
+        photo: "assets/team/Pan.webp",
+      },
     ],
     groups: {
       ops: [
         {
-          title: "Logistics", members: [
-            { name: "Kenta Takizawa", role: "Logistics", photo: "assets/team/KentaY10.webp" },
-            { name: "Pam Direkwattanachai", role: "Logistics", photo: "assets/team/Pam.webp" },
-            { name: "Cookie Kraikabkaew", role: "Logistics", photo: "assets/team/cookie.webp" },
-          ]
+          title: "Logistics",
+          members: [
+            {
+              name: "Kenta Takizawa",
+              role: "Logistics",
+              photo: "assets/team/KentaY10.webp",
+            },
+            {
+              name: "Pam Direkwattanachai",
+              role: "Logistics",
+              photo: "assets/team/Pam.webp",
+            },
+            {
+              name: "Cookie Kraikabkaew",
+              role: "Logistics",
+              photo: "assets/team/cookie.webp",
+            },
+          ],
         },
         {
-          title: "Finance", members: [
-            { name: "Get Limbupasiriporn", role: "Finance", photo: "assets/team/GetY10.webp" },
-            { name: "Lee Srichaikul", role: "Finance", photo: "assets/team/Lee.webp" },
-          ]
+          title: "Finance",
+          members: [
+            {
+              name: "Get Limbupasiriporn",
+              role: "Finance",
+              photo: "assets/team/GetY10.webp",
+            },
+            {
+              name: "Lee Srichaikul",
+              role: "Finance",
+              photo: "assets/team/Lee.webp",
+            },
+          ],
         },
       ],
       lead: [
         {
-          title: "Curriculum Planning", members: [
-            { name: "Aimer Sookprasert", role: "Curriculum Planning", photo: "assets/team/Aimer.webp" },
-            { name: "Nemo Jentaweepornkul", role: "Curriculum Planning", photo: "assets/team/Nemo.webp" },
-          ]
+          title: "Curriculum Planning",
+          members: [
+            {
+              name: "Aimer Sookprasert",
+              role: "Curriculum Planning",
+              photo: "assets/team/Aimer.webp",
+            },
+            {
+              name: "Nemo Jentaweepornkul",
+              role: "Curriculum Planning",
+              photo: "assets/team/Nemo.webp",
+            },
+          ],
         },
         {
-          title: "Resources", members: [
-            { name: "Putter Siripraiwan", role: "Resources", photo: "assets/team/Putter.webp" },
-            { name: "Korn Chanyasan", role: "Resources", photo: "assets/team/Korn.webp" },
-          ]
+          title: "Resources",
+          members: [
+            {
+              name: "Putter Siripraiwan",
+              role: "Resources",
+              photo: "assets/team/Putter.webp",
+            },
+            {
+              name: "Korn Chanyasan",
+              role: "Resources",
+              photo: "assets/team/Korn.webp",
+            },
+          ],
         },
       ],
       pr: [
         {
-          title: "Marketing", members: [
-            { name: "Love Chitsophon", role: "Marketing", photo: "assets/team/Love.webp" },
-            { name: "Win Sukapiriya", role: "Marketing", photo: "assets/team/Win.webp" },
-            { name: "Peter Kriengkomol", role: "Marketing", photo: "assets/team/Peter.webp" },
-          ]
+          title: "Marketing",
+          members: [
+            {
+              name: "Love Chitsophon",
+              role: "Marketing",
+              photo: "assets/team/Love.webp",
+            },
+            {
+              name: "Win Sukapiriya",
+              role: "Marketing",
+              photo: "assets/team/Win.webp",
+            },
+            {
+              name: "Peter Kriengkomol",
+              role: "Marketing",
+              photo: "assets/team/Peter.webp",
+            },
+          ],
         },
         {
-          title: "Communications", members: [
-            { name: "Marco Thanadsarng", role: "Communications", photo: "assets/team/Marco.webp" },
-            { name: "BamBam Techathanachuen", role: "Communications", photo: "assets/team/Bambam.webp" },
-            { name: "Nott Chookul", role: "Communications", photo: "assets/team/Nott.webp" },
-          ]
+          title: "Communications",
+          members: [
+            {
+              name: "Marco Thanadsarng",
+              role: "Communications",
+              photo: "assets/team/Marco.webp",
+            },
+            {
+              name: "BamBam Techathanachuen",
+              role: "Communications",
+              photo: "assets/team/Bambam.webp",
+            },
+            {
+              name: "Nott Chookul",
+              role: "Communications",
+              photo: "assets/team/Nott.webp",
+            },
+          ],
         },
       ],
     },
@@ -73,10 +165,15 @@
   /* ---------- Team (About view) ---------- */
   let avatarCount = 0;
   function initials(name) {
-    return name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join("");
+    return name
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((w) => w[0].toUpperCase())
+      .join("");
   }
   function avatarSVG(name) {
-    const id = "av" + (++avatarCount);
+    const id = "av" + ++avatarCount;
     return `<svg class="avatar" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
       <defs>
         <linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1">
@@ -114,7 +211,9 @@
     const help = $("[data-team-help]");
     let selected = null;
 
-    leadsEl.innerHTML = TEAM.leads.map((l) => `
+    leadsEl.innerHTML = TEAM.leads
+      .map(
+        (l) => `
       <button class="lead${l.id === "lead" ? " lead--center" : ""}" type="button" data-lead="${escapeHTML(l.id)}"
               aria-expanded="false" aria-controls="team-panel">
         ${photoHTML(l, "lead__photo")}
@@ -123,7 +222,9 @@
         <span class="lead__hint">View team
           <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </span>
-      </button>`).join("");
+      </button>`,
+      )
+      .join("");
 
     function renderPanel() {
       if (!selected) {
@@ -133,16 +234,23 @@
         </div>`;
       }
       const groups = TEAM.groups[selected] || [];
-      const cls = groups.length > 1 ? "team-group team-group--multi" : "team-group";
-      return groups.map((g) => `
+      const cls =
+        groups.length > 1 ? "team-group team-group--multi" : "team-group";
+      return groups
+        .map(
+          (g) => `
         <div class="${cls}">
           <h3 class="team-group__title">${escapeHTML(g.title)}</h3>
           <ul class="members">${g.members.map(memberHTML).join("")}</ul>
-        </div>`).join("");
+        </div>`,
+        )
+        .join("");
     }
 
     function update(animate) {
-      $$(".lead", leadsEl).forEach((b) => b.setAttribute("aria-expanded", String(b.dataset.lead === selected)));
+      $$(".lead", leadsEl).forEach((b) =>
+        b.setAttribute("aria-expanded", String(b.dataset.lead === selected)),
+      );
       panel.dataset.team = selected || ""; // lets the CSS zoom the team out from this head
       const lead = TEAM.leads.find((l) => l.id === selected);
       help.textContent = lead
@@ -162,7 +270,9 @@
       void inner.offsetWidth;
       inner.classList.add("is-entering");
       const to = inner.offsetHeight;
-      requestAnimationFrame(() => { panel.style.height = to + "px"; });
+      requestAnimationFrame(() => {
+        panel.style.height = to + "px";
+      });
       const done = (e) => {
         if (e.target !== panel) return;
         panel.style.height = "";
@@ -186,12 +296,16 @@
   // Swap a broken headshot for the generated placeholder avatar
   function bindFallbacks(ctx) {
     $$("img[data-fallback]", ctx).forEach((img) => {
-      img.addEventListener("error", () => {
-        const wrap = document.createElement("div");
-        wrap.className = img.className.replace("avatar", "").trim();
-        wrap.innerHTML = avatarSVG(img.dataset.fallback);
-        img.replaceWith(wrap);
-      }, { once: true });
+      img.addEventListener(
+        "error",
+        () => {
+          const wrap = document.createElement("div");
+          wrap.className = img.className.replace("avatar", "").trim();
+          wrap.innerHTML = avatarSVG(img.dataset.fallback);
+          img.replaceWith(wrap);
+        },
+        { once: true },
+      );
     });
   }
 

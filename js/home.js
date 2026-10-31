@@ -9,9 +9,19 @@
   // Old links like index.html#/about or #/event (from the one-page version) still work
   if (location.hash.startsWith("#/")) {
     const seg = location.hash.slice(2).split(/[/?]/)[0].toLowerCase();
-    if (seg === "about") { location.replace("about.html"); return; }
-    history.replaceState(null, "", seg && seg !== "home" ? "#" + seg : location.pathname);
-    if (seg && seg !== "home") requestAnimationFrame(() => document.getElementById(seg)?.scrollIntoView());
+    if (seg === "about") {
+      location.replace("about.html");
+      return;
+    }
+    history.replaceState(
+      null,
+      "",
+      seg && seg !== "home" ? "#" + seg : location.pathname,
+    );
+    if (seg && seg !== "home")
+      requestAnimationFrame(() =>
+        document.getElementById(seg)?.scrollIntoView(),
+      );
   }
 
   // ▼▼▼ ★ EDIT EVENT DATE HERE (Bangkok time, UTC+7) ▼▼▼
@@ -25,7 +35,9 @@
     const tiles = $("[data-countdown-tiles]");
     const live = $("[data-countdown-live]");
     const els = {};
-    $$("[data-unit]", tiles).forEach((el) => { els[el.dataset.unit] = el; });
+    $$("[data-unit]", tiles).forEach((el) => {
+      els[el.dataset.unit] = el;
+    });
     if (Number.isNaN(target)) return;
 
     const pad = (n) => String(n).padStart(2, "0");
@@ -68,7 +80,13 @@
     let userPaused = false;
     let inView = false;
 
-    const SWIPE_CLASSES = ["is-leaving", "in-left", "in-right", "out-left", "out-right"];
+    const SWIPE_CLASSES = [
+      "is-leaving",
+      "in-left",
+      "in-right",
+      "out-left",
+      "out-right",
+    ];
 
     // dir: 1 = forward (swipe in from the right), -1 = backward
     function go(n, fromUser, dir) {
@@ -119,42 +137,67 @@
       timer = setTimeout(() => go(index + 1, false, 1), DELAY);
     }
 
-    $("[data-carousel-prev]", root).addEventListener("click", () => go(index - 1, true, -1));
-    $("[data-carousel-next]", root).addEventListener("click", () => go(index + 1, true, 1));
-    posters.forEach((el) => el.addEventListener("animationend", () => {
-      if (!el.classList.contains("is-active")) el.classList.remove(...SWIPE_CLASSES);
-    }));
+    $("[data-carousel-prev]", root).addEventListener("click", () =>
+      go(index - 1, true, -1),
+    );
+    $("[data-carousel-next]", root).addEventListener("click", () =>
+      go(index + 1, true, 1),
+    );
+    posters.forEach((el) =>
+      el.addEventListener("animationend", () => {
+        if (!el.classList.contains("is-active"))
+          el.classList.remove(...SWIPE_CLASSES);
+      }),
+    );
     dots.forEach((dot, i) => dot.addEventListener("click", () => go(i, true)));
 
     toggle.addEventListener("click", () => {
       userPaused = !userPaused;
       root.classList.toggle("is-paused-by-user", userPaused);
-      toggle.setAttribute("aria-label", userPaused ? "Play automatic slide show" : "Pause automatic slide show");
+      toggle.setAttribute(
+        "aria-label",
+        userPaused ? "Play automatic slide show" : "Pause automatic slide show",
+      );
       schedule();
     });
 
     root.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") { e.preventDefault(); go(index - 1, true, -1); }
-      if (e.key === "ArrowRight") { e.preventDefault(); go(index + 1, true, 1); }
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        go(index - 1, true, -1);
+      }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        go(index + 1, true, 1);
+      }
     });
 
     // Touch / pen swipe
     let startX = null;
     let startY = null;
-    stage.addEventListener("pointerdown", (e) => { startX = e.clientX; startY = e.clientY; });
+    stage.addEventListener("pointerdown", (e) => {
+      startX = e.clientX;
+      startY = e.clientY;
+    });
     stage.addEventListener("pointerup", (e) => {
       if (startX === null) return;
       const dx = e.clientX - startX;
       const dy = e.clientY - startY;
-      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(index + (dx < 0 ? 1 : -1), true, dx < 0 ? 1 : -1);
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy))
+        go(index + (dx < 0 ? 1 : -1), true, dx < 0 ? 1 : -1);
       startX = null;
     });
-    stage.addEventListener("pointercancel", () => { startX = null; });
+    stage.addEventListener("pointercancel", () => {
+      startX = null;
+    });
 
-    new IntersectionObserver((entries) => {
-      inView = entries[0].isIntersecting;
-      schedule();
-    }, { threshold: .35 }).observe(root);
+    new IntersectionObserver(
+      (entries) => {
+        inView = entries[0].isIntersecting;
+        schedule();
+      },
+      { threshold: 0.35 },
+    ).observe(root);
     document.addEventListener("visibilitychange", schedule);
     reducedMotion.addEventListener("change", schedule);
   }
@@ -177,17 +220,21 @@
         toggle.setAttribute("aria-expanded", String(flipped));
         if (!isReduced()) card.classList.add("is-turning");
       });
-      const turned = (e) => { if (e.target === inner) card.classList.remove("is-turning"); };
+      const turned = (e) => {
+        if (e.target === inner) card.classList.remove("is-turning");
+      };
       inner.addEventListener("animationend", turned);
       inner.addEventListener("animationcancel", turned);
 
       if (!canTilt) return;
-      let raf = 0, px = 0, py = 0;
+      let raf = 0,
+        px = 0,
+        py = 0;
       function lean() {
         raf = 0;
         const r = card.getBoundingClientRect();
-        const x = (px - r.left) / (r.width || 1) - .5;
-        const y = (py - r.top) / (r.height || 1) - .5;
+        const x = (px - r.left) / (r.width || 1) - 0.5;
+        const y = (py - r.top) / (r.height || 1) - 0.5;
         card.style.setProperty("--ry", (x * TILT * 2).toFixed(2) + "deg");
         card.style.setProperty("--rx", (-y * TILT * 2).toFixed(2) + "deg");
       }
@@ -262,20 +309,20 @@
 
     function loopWidth() {
       if (!loopW && sets > 1) {
-        const half = track.children[SPONSORS.length * sets / 2];
+        const half = track.children[(SPONSORS.length * sets) / 2];
         loopW = half ? half.offsetLeft - track.firstElementChild.offsetLeft : 0;
       }
       return loopW;
     }
 
     function frame(t) {
-      const dt = last ? Math.min((t - last) / 1000, .05) : 0;
+      const dt = last ? Math.min((t - last) / 1000, 0.05) : 0;
       last = t;
       if (!hovering) offset += SPEED * dt;
       if (nudge) {
         const step = nudge * Math.min(1, dt * 7);
         offset += step;
-        nudge = Math.abs(nudge - step) < .5 ? 0 : nudge - step;
+        nudge = Math.abs(nudge - step) < 0.5 ? 0 : nudge - step;
       }
       const w = loopWidth();
       if (w) offset = ((offset % w) + w) % w;
@@ -297,25 +344,50 @@
       const tile = track.firstElementChild;
       return tile ? tile.getBoundingClientRect().width + 24 : 200;
     };
-    $("[data-marquee-prev]", wrap).addEventListener("click", () => { nudge -= step(); });
-    $("[data-marquee-next]", wrap).addEventListener("click", () => { nudge += step(); });
-    viewport.addEventListener("mouseenter", () => { hovering = true; });
-    viewport.addEventListener("mouseleave", () => { hovering = false; });
-    viewport.addEventListener("focusin", () => { hovering = true; });
-    viewport.addEventListener("focusout", () => { hovering = false; });
+    $("[data-marquee-prev]", wrap).addEventListener("click", () => {
+      nudge -= step();
+    });
+    $("[data-marquee-next]", wrap).addEventListener("click", () => {
+      nudge += step();
+    });
+    viewport.addEventListener("mouseenter", () => {
+      hovering = true;
+    });
+    viewport.addEventListener("mouseleave", () => {
+      hovering = false;
+    });
+    viewport.addEventListener("focusin", () => {
+      hovering = true;
+    });
+    viewport.addEventListener("focusout", () => {
+      hovering = false;
+    });
 
     new IntersectionObserver((entries) => {
       inView = entries[0].isIntersecting;
-      if (inView) start(); else stop();
+      if (inView) start();
+      else stop();
     }).observe(wrap);
-    document.addEventListener("visibilitychange", () => { if (document.hidden) stop(); else start(); });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop();
+      else start();
+    });
 
     let resizeTimer = null;
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => { stop(); build(); start(); }, 200);
+      resizeTimer = setTimeout(() => {
+        stop();
+        build();
+        start();
+      }, 200);
     });
-    reducedMotion.addEventListener("change", () => { stop(); offset = 0; build(); start(); });
+    reducedMotion.addEventListener("change", () => {
+      stop();
+      offset = 0;
+      build();
+      start();
+    });
   }
 
   /* ---------- Hero parallax ---------- */
@@ -330,9 +402,16 @@
       banner.style.setProperty("--parallax-scale", (1 - t * 0.08).toFixed(4));
       banner.style.setProperty("--parallax-fade", (1 - t * 0.55).toFixed(3));
     }
-    window.addEventListener("scroll", () => {
-      if (!ticking) { ticking = true; requestAnimationFrame(update); }
-    }, { passive: true });
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
     window.addEventListener("resize", update);
     update();
   }
